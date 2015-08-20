@@ -20,3 +20,24 @@ Alt text to show if none of your images load.
 
 #### `className`
 optional classname to style your image
+
+### Use
+
+```js
+import React From "react";
+import ReactImageFallback from "react-image-fallback";
+export default class ShowImage extends React.Component {
+	render() {
+		return (
+			<div>
+				<ReactImageFallback
+					src="my-image.png"
+					fallbackImage="my-backup.png"
+					initialImage="loader.gif"
+					alt="cool image should be here"
+					className="my-image" />
+			</div>
+		);
+	}
+}
+```
