@@ -24,7 +24,7 @@ class ReactImageFallback extends React.Component {
 	}
 
 	render() {
-		let image = this.state.displayImage ? <img className={this.props.className} src={this.state.displayImage} alt={this.props.alt} /> : null;
+		let image = this.state.displayImage ? <img {...this.props} src={this.state.displayImage} /> : null;
 		return (
 			<span>{image}</span>
 		);
@@ -36,14 +36,10 @@ ReactImageFallback.propTypes = {
 	src: React.PropTypes.string.isRequired,
 	fallbackImage: React.PropTypes.string.isRequired,
 	initialImage: React.PropTypes.string,
-	alt: React.PropTypes.string,
-	className: React.PropTypes.string
 };
 
 ReactImageFallback.defaultProps = {
-	initialImage: null,
-	className: "",
-	alt: ""
+	initialImage: null
 };
 
 
