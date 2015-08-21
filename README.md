@@ -2,6 +2,9 @@
 
 React Image Fallback exists for those times that you're just not sure an image will be there.
 
+### Install
+` npm install react-image-fallback`
+
 ### Required Props
 
 #### `src`
@@ -15,11 +18,8 @@ A string representing the image you want to fallback to if your primary image is
 #### `initialImage`
 The image to show before your `src` or `fallbackImage` load. 
 
-#### `alt`
-Alt text to show if none of your images load. 
-
-#### `className`
-optional classname to style your image
+#### `spread props`
+This component also utilizes jsx spread attributes to pass along custom image attributes such as alt tags and className
 
 ### Use
 
