@@ -51,8 +51,8 @@ ReactImageFallback.propTypes = {
 
 ReactImageFallback.defaultProps = {
 	initialImage: null,
-	shouldUpdateImage: function() {
-		return false;
+	shouldUpdateImage: function(props, nextProps) {
+		return props.src !== nextProps.src;
 	}
 };
 
