@@ -18,6 +18,9 @@ A string representing the image you want to fallback to if your primary image is
 #### `initialImage`
 The image to show before your `src` or `fallbackImage` load. 
 
+### `shouldUpdateImage`
+By default this will return false, a user can pass a function telling the componet to update state that controls the `src` of image
+
 #### `spread props`
 This component also utilizes jsx spread attributes to pass along custom image attributes such as alt tags and className
 
