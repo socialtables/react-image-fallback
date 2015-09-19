@@ -1,6 +1,6 @@
 {
   "name": "react-image-fallback",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "if your image doesn't exist, fallback onto another provided image.",
   "main": "lib/index.js",
   "scripts": {
