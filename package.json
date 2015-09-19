@@ -4,7 +4,7 @@
   "description": "if your image doesn't exist, fallback onto another provided image.",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src/index.js --out-file lib/index.js",
+    "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
     "lint": "./node_modules/.bin/eslint ./src"
   },
