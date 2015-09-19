@@ -1,26 +1,37 @@
-import React from "react";
+import React, { Component, PropTypes } from "react";
 
-class ReactImageFallback extends React.Component {
+class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			displayImage: props.initialImage
 		};
+		this.setDisplayImage = this.setDisplayImage.bind(this);
 	}
 
 	componentDidMount() {
+		this.setDisplayImage(this.props.src, this.props.fallbackImage);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.src !== this.props.src){
+			this.setDisplayImage(nextProps.src, nextProps.fallbackImage);
+		}
+	}
+
+	setDisplayImage(image, fallback) {
 		let displayImage = new Image();
 		displayImage.onerror = () => {
 			this.setState({
-				displayImage: this.props.fallbackImage
+				displayImage: fallback
 			});
 		};
 		displayImage.onload = () => {
 			this.setState({
-				displayImage: this.props.src
+				displayImage: image
 			});
 		};
-		displayImage.src = this.props.src;
+		displayImage.src = image;
 	}
 
 	render() {
@@ -33,9 +44,9 @@ class ReactImageFallback extends React.Component {
 ReactImageFallback.displayName = "ReactImageFallback";
 
 ReactImageFallback.propTypes = {
-	src: React.PropTypes.string.isRequired,
-	fallbackImage: React.PropTypes.string.isRequired,
-	initialImage: React.PropTypes.string,
+	src: PropTypes.string.isRequired,
+	fallbackImage: PropTypes.string.isRequired,
+	initialImage: PropTypes.string
 };
 
 ReactImageFallback.defaultProps = {
