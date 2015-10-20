@@ -26,8 +26,8 @@
     "url": "https://github.com/socialtables/react-image-fallback/issues"
   },
   "homepage": "https://github.com/socialtables/react-image-fallback",
-  "dependencies": {
-    "react": "^0.13.3"
+  "peerDependencies": {
+    "react": ">=0.13 <0.15"
   },
   "devDependencies": {
     "babel": "^5.3.1",
