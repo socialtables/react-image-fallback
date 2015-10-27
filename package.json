@@ -6,7 +6,8 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
-    "lint": "./node_modules/.bin/eslint ./src"
+    "lint": "./node_modules/.bin/eslint ./src",
+    "watch": "babel src --watch --out-dir lib"
   },
   "repository": {
     "type": "git",
