@@ -5,7 +5,7 @@ class ReactImageFallback extends Component {
 		super(props);
 		this.displayImage = new Image();
 		this.state = {
-			displayImage: props.initialImage
+			imageSource: props.initialImage
 		};
 		this.setDisplayImage = this.setDisplayImage.bind(this);
 	}
@@ -28,19 +28,19 @@ class ReactImageFallback extends Component {
 	setDisplayImage(image, fallback) {
 		this.displayImage.onerror = () => {
 			this.setState({
-				displayImage: fallback
+				imageSource: fallback
 			});
 		};
 		this.displayImage.onload = () => {
 			this.setState({
-				displayImage: image
+				imageSource: image
 			});
 		};
 		this.displayImage.src = image;
 	}
 
 	render() {
-		let image = this.state.displayImage ? <img {...this.props} src={this.state.displayImage} /> : null;
+		let image = this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
 		return (
 			<span>{image}</span>
 		);
