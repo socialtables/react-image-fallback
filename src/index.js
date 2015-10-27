@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from "react";
 class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
+		this.displayImage = new Image();
 		this.state = {
 			displayImage: props.initialImage
 		};
@@ -19,19 +20,23 @@ class ReactImageFallback extends Component {
 		}
 	}
 
+	componentWillUnmount() {
+		this.displayImage.onerror = null;
+		this.displayImage.onload = null;
+	}
+
 	setDisplayImage(image, fallback) {
-		let displayImage = new Image();
-		displayImage.onerror = () => {
+		this.displayImage.onerror = () => {
 			this.setState({
 				displayImage: fallback
 			});
 		};
-		displayImage.onload = () => {
+		this.displayImage.onload = () => {
 			this.setState({
 				displayImage: image
 			});
 		};
-		displayImage.src = image;
+		this.displayImage.src = image;
 	}
 
 	render() {
