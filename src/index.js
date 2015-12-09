@@ -40,10 +40,7 @@ class ReactImageFallback extends Component {
 	}
 
 	render() {
-		let image = this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
-		return (
-			<span>{image}</span>
-		);
+		return this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
 	}
 }
 ReactImageFallback.displayName = "ReactImageFallback";
