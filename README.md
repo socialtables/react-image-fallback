@@ -8,10 +8,10 @@ React Image Fallback exists for those times that you're just not sure an image w
 ### Required Props
 
 #### `src`
-A string represent the url to your primary image. 
+A string represent the url to your primary image. Optionally you can pass an array of src images to try before going to fallbackImage. 
 
 #### `fallbackImage`
-A string representing the image you want to fallback to if your primary image is not there.
+A string representing the image you want to fallback to if your primary image is not there. Optionally you can pass an array of fallback images that it will cycle through if the first one fails.
 
 ### Optional Props
 
