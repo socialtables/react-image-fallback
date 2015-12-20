@@ -1,34 +1,22 @@
 import React, { Component, PropTypes } from "react";
 
-function getImageArray(props) {
-	const { src, fallbackImage } = props;
-	const source = Array.isArray(src) ? src : [src];
-	return source.concat(fallbackImage);
-}
-
 class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
 		this.displayImage = new Image();
 		this.state = {
-			imageSource: props.initialImage,
-			imageIndex: 0,
-			hasInitial: !!props.initialImage,
-			images: getImageArray(props)
+			imageSource: props.initialImage
 		};
 		this.setDisplayImage = this.setDisplayImage.bind(this);
 	}
 
 	componentDidMount() {
-		this.setDisplayImage();
+		this.setDisplayImage(this.props.src, this.props.fallbackImage);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.src !== this.props.src) {
-			this.setState({
-				imageIndex: 0,
-				images: getImageArray(nextProps)
-			}, this.setDisplayImage);
+		if (nextProps.src !== this.props.src){
+			this.setDisplayImage(nextProps.src, nextProps.fallbackImage);
 		}
 	}
 
@@ -37,52 +25,33 @@ class ReactImageFallback extends Component {
 		this.displayImage.onload = null;
 	}
 
-	setDisplayImageSrc() {
-		this.displayImage.src = this.state.imageSource;
-	}
-
-	setDisplayImage() {
+	setDisplayImage(image, fallback) {
 		this.displayImage.onerror = () => {
-			const { images, imageIndex } = this.state;
 			this.setState({
-				imageSource: images[imageIndex],
-				imageIndex: imageIndex + 1
-			}, this.setDisplayImageSrc);
+				imageSource: fallback
+			});
 		};
-
 		this.displayImage.onload = () => {
-			const { images, imageIndex, hasInitial } = this.state;
-			const callback = hasInitial && this.setDisplayImageSrc;
 			this.setState({
-				imageSource: images[imageIndex - 1],
-				hasInitial: false
-			}, callback);
+				imageSource: image
+			});
 		};
-
-		this.setDisplayImageSrc();
+		this.displayImage.src = image;
 	}
 
 	render() {
-		const { imageSource } = this.state;
-		return imageSource ? <img {...this.props} src={imageSource} /> : null;
+		return this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
 	}
 }
 ReactImageFallback.displayName = "ReactImageFallback";
 
 ReactImageFallback.propTypes = {
-	src: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.string),
-		PropTypes.string
-	]).isRequired,
-	fallbackImage: PropTypes.oneOfType([
-		PropTypes.arrayOf(PropTypes.string),
-		PropTypes.string
-	]),
+	src: PropTypes.string.isRequired,
+	fallbackImage: PropTypes.string.isRequired,
 	initialImage: PropTypes.string
 };
 
 ReactImageFallback.defaultProps = {
-	fallbackImage: null,
 	initialImage: null
 };
 
