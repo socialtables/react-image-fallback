@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from "react";
 
-class ReactImageFallback extends Component {
+export default class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
 		this.displayImage = new Image();
@@ -54,6 +54,3 @@ ReactImageFallback.propTypes = {
 ReactImageFallback.defaultProps = {
 	initialImage: null
 };
-
-
-module.exports = ReactImageFallback;
