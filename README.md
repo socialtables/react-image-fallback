@@ -2,6 +2,8 @@
 
 React Image Fallback exists for those times that you're just not sure an image will be there.
 
+[![Circle CI](https://circleci.com/gh/socialtables/react-image-fallback.svg?style=svg)](https://circleci.com/gh/socialtables/react-image-fallback)
+
 ### Install
 ` npm install react-image-fallback`
 
