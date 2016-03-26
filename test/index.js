@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import TestUtils from "react-addons-test-utils";
 import test from "tape-catch";
+import td from 'testdouble';
 import ReactImageFallback from "../lib";
 
 const initialImage = "http://i.imgur.com/4pjZbyA.png";
@@ -70,4 +71,28 @@ test("initialImage prop is properly set as the initial state", (assert) => {
 	assert.ok(rendered.state.imageSource === initialImage, "initialImage is properly set as initial state srcImage");
 	ReactDOM.unmountComponentAtNode(node);
 	assert.end();
+});
+
+test("onLoad function is called on successful src load if provided", (assert) => {
+	const onLoad = td.function("onLoad");
+	const component = <ReactImageFallback src={srcImage} fallbackImage={fallbackImage} onLoad={onLoad} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		assert.ok(td.verify(onLoad(srcImage)) === undefined, "onLoad called with srcImage");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 500);
+});
+
+test("onError function is called on failed src load if provides", (assert) => {
+	const onError = td.function("onError");
+	const component = <ReactImageFallback src="http://brokenimage.com" fallbackImage={fallbackImage} onError={onError} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		assert.ok(td.verify(onError("http://brokenimage.com")) === undefined, "onError called with srcImage");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 500);
 });

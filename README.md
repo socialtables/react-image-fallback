@@ -20,6 +20,12 @@ A string representing the image you want to fallback to if your primary image is
 #### `initialImage`
 The image to show before your `src` or `fallbackImage` load. 
 
+#### `onLoad`
+A callback called if initial image loads successfully, will be called with successful image url.
+
+#### `onError`
+A callback called if initial image load fails, will be called with failing image url.
+
 #### `spread props`
 This component also utilizes jsx spread attributes to pass along custom image attributes such as alt tags and className
 
