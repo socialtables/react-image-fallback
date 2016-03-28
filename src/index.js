@@ -27,19 +27,21 @@ export default class ReactImageFallback extends Component {
 
 	setDisplayImage(image, fallback) {
 		this.displayImage.onerror = () => {
-			if (this.props.onError) {
-				this.props.onError(image);
-			}
 			this.setState({
 				imageSource: fallback
+			}, () => {
+				if (this.props.onError) {
+					this.props.onError(image);
+				}
 			});
 		};
 		this.displayImage.onload = () => {
-			if (this.props.onLoad) {
-				this.props.onLoad(image);
-			}
 			this.setState({
 				imageSource: image
+			}, () => {
+				if (this.props.onLoad) {
+					this.props.onLoad(image);
+				}
 			});
 		};
 		this.displayImage.src = image;
