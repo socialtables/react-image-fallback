@@ -9,7 +9,8 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "test": "npm run build && npm run lint &&  browserify test/index.js | tap-closer | smokestack -b firefox | tap-status",
     "test-debug": "npm run build && npm run lint &&  browserify test/index.js | smokestack | tap-status",
-    "watch": "babel src --watch --out-dir lib"
+    "watch": "babel src --watch --out-dir lib",
+    "build-demo": "browserify demo/index.js -o demo/bundle.js"
   },
   "browserify": {
     "transform": [
