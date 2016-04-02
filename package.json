@@ -43,7 +43,7 @@
   },
   "homepage": "https://github.com/socialtables/react-image-fallback",
   "peerDependencies": {
-    "react": ">=0.13 <0.15"
+    "react": ">=0.13"
   },
   "devDependencies": {
     "babel": "^6.3.26",
