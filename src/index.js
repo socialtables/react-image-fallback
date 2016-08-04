@@ -48,7 +48,12 @@ export default class ReactImageFallback extends Component {
 	}
 
 	render() {
-		return this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
+		// so non-kosher HTML attributes not passed to <img />
+		const props = Object.assign({}, this.props, {
+			fallbackImage: null,
+			initialImage: null
+		})
+		return this.state.imageSource ? <img {...props} src={this.state.imageSource} /> : null;
 	}
 }
 ReactImageFallback.displayName = "ReactImageFallback";
