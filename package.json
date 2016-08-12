@@ -63,5 +63,8 @@
     "tape": "^4.4.0",
     "tape-catch": "^1.0.4",
     "testdouble": "^1.2.0"
+  },
+  "dependencies": {
+    "html-attributes": "1.1.0"
   }
 }

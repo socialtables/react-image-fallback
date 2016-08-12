@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from "react";
+import filterDOMProps from "./lib/filter-dom-props";
 
 export default class ReactImageFallback extends Component {
 	constructor(props) {
@@ -48,7 +49,8 @@ export default class ReactImageFallback extends Component {
 	}
 
 	render() {
-		return this.state.imageSource ? <img {...this.props} src={this.state.imageSource} /> : null;
+		const domProps = filterDOMProps(this.props);
+		return this.state.imageSource ? <img {...domProps} src={this.state.imageSource} /> : null;
 	}
 }
 ReactImageFallback.displayName = "ReactImageFallback";
