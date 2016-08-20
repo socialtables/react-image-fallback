@@ -96,3 +96,16 @@ test("onError function is called on failed src load if provides", (assert) => {
 		assert.end();
 	}, 500);
 });
+
+test("should allow react element as fallback", (assert) => {
+	const fallback = <div className="div-class">~**~</div>
+	const component = <ReactImageFallback src="http://brokenimage.com" fallbackImage={fallback} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		const dom = TestUtils.findRenderedDOMComponentWithTag(rendered, "div");
+		assert.ok(dom.className === "div-class", "uses div as fallback");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 800);
+});

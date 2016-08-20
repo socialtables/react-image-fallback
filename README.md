@@ -13,7 +13,7 @@ React Image Fallback exists for those times that you're just not sure an image w
 A string represent the url to your primary image.
 
 #### `fallbackImage`
-A string representing the image you want to fallback to if your primary image is not there.
+A string representing the image you want to fallback to if your primary image is not there. Optionally this can also be passed in as a react element. 
 
 ### Optional Props
 
