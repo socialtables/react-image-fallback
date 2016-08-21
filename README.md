@@ -18,7 +18,7 @@ A string representing the image you want to fallback to if your primary image is
 ### Optional Props
 
 #### `initialImage`
-The image to show before your `src` or `fallbackImage` load. 
+The image to show before your `src` or `fallbackImage` load. Can optionally be passed in as a react element.
 
 #### `onLoad`
 A callback called if initial image loads successfully, will be called with successful image url.

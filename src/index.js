@@ -60,13 +60,12 @@ export default class ReactImageFallback extends Component {
 }
 ReactImageFallback.displayName = "ReactImageFallback";
 
+const initialAndFallbackPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.element]);
+
 ReactImageFallback.propTypes = {
 	src: PropTypes.string.isRequired,
-	fallbackImage: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.element
-	]).isRequired,
-	initialImage: PropTypes.string,
+	fallbackImage: initialAndFallbackPropType.isRequired,
+	initialImage: initialAndFallbackPropType,
 	onLoad: PropTypes.func,
 	onError: PropTypes.func
 };

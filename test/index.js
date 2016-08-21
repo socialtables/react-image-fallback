@@ -109,3 +109,19 @@ test("should allow react element as fallback", (assert) => {
 		assert.end();
 	}, 800);
 });
+
+test("should allow react element as initialImage", (assert) => {
+	const initial = <div className="div-class">~**~</div>
+	const component = (
+		<ReactImageFallback
+			src="http://brokenimage.com"
+			fallbackImage="http://brokenimage.com"
+			initialImage={initial}
+		/>
+	);
+	const rendered = renderComponent(component);
+	const dom = TestUtils.findRenderedDOMComponentWithTag(rendered, "div");
+	assert.ok(dom.className === "div-class", "uses div as fallback");
+	ReactDOM.unmountComponentAtNode(node);
+	assert.end();
+});
