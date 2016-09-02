@@ -85,7 +85,7 @@ test("onLoad function is called on successful src load if provided", (assert) =>
 	}, 500);
 });
 
-test("onError function is called on failed src load if provides", (assert) => {
+test("onError function is called on failed src load if provided", (assert) => {
 	const onError = td.function("onError");
 	const component = <ReactImageFallback src="http://brokenimage.com" fallbackImage={fallbackImage} onError={onError} />;
 	const rendered = renderComponent(component);
@@ -94,7 +94,7 @@ test("onError function is called on failed src load if provides", (assert) => {
 		assert.ok(td.verify(onError("http://brokenimage.com")) === undefined, "onError called with srcImage");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 500);
+	}, 800);
 });
 
 test("should allow react element as fallback", (assert) => {
@@ -124,4 +124,31 @@ test("should allow react element as initialImage", (assert) => {
 	assert.ok(dom.className === "div-class", "uses div as fallback");
 	ReactDOM.unmountComponentAtNode(node);
 	assert.end();
+});
+
+test("should allow array of fallbacks", (assert) => {
+	const fallbacks = ["http://broken.com", fallbackImage];
+	const component = <ReactImageFallback src="http://brokenimage.com" fallbackImage={fallbacks} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		const dom = TestUtils.findRenderedDOMComponentWithTag(rendered, "img");
+		assert.ok(dom.src === fallbackImage, "rendered image has fallbackImage prop as src");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 800);
+});
+
+test("should allow array of fallbacks and should stop when hitting react element", (assert) => {
+	const fallbackElement = <div className="div-class">~**~</div>
+	const fallbacks = ["http://broken.com", fallbackElement, fallbackImage];
+	const component = <ReactImageFallback src="http://brokenimage.com" fallbackImage={fallbacks} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		const dom = TestUtils.findRenderedDOMComponentWithTag(rendered, "div");
+		assert.ok(dom.className === "div-class", "uses div as fallback");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 800);
 });
