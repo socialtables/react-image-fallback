@@ -12,12 +12,12 @@ export default class ReactImageFallback extends Component {
 	}
 
 	componentDidMount() {
-		this.setDisplayImage(this.props.src, this.props.fallbackImage);
+		this.setDisplayImage({ image: this.props.src, fallbacks: this.props.fallbackImage });
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.src !== this.props.src){
-			this.setDisplayImage(nextProps.src, nextProps.fallbackImage);
+			this.setDisplayImage({ image: nextProps.src, fallbacks: nextProps.fallbackImage });
 		}
 	}
 
@@ -25,27 +25,33 @@ export default class ReactImageFallback extends Component {
 		this.displayImage.onerror = null;
 		this.displayImage.onload = null;
 	}
-
-	setDisplayImage(image, fallback) {
+	
+	setDisplayImage({ image, fallbacks }) {
+		const imagesArray = [image].concat(fallbacks);
 		this.displayImage.onerror = () => {
+			if (imagesArray.length > 2 && typeof imagesArray[1] === "string") {
+				const updatedFallbacks = imagesArray.slice(2);
+				this.setDisplayImage({ image: imagesArray[1], fallbacks: updatedFallbacks });
+				return;
+			}
 			this.setState({
-				imageSource: fallback
+				imageSource: imagesArray[1]
 			}, () => {
 				if (this.props.onError) {
-					this.props.onError(image);
+					this.props.onError(this.props.src);
 				}
 			});
 		};
 		this.displayImage.onload = () => {
 			this.setState({
-				imageSource: image
+				imageSource: imagesArray[0]
 			}, () => {
 				if (this.props.onLoad) {
-					this.props.onLoad(image);
+					this.props.onLoad(imagesArray[0]);
 				}
 			});
 		};
-		this.displayImage.src = image;
+		this.displayImage.src = imagesArray[0];
 	}
 
 	render() {
@@ -60,12 +66,10 @@ export default class ReactImageFallback extends Component {
 }
 ReactImageFallback.displayName = "ReactImageFallback";
 
-const initialAndFallbackPropType = PropTypes.oneOfType([PropTypes.string, PropTypes.element]);
-
 ReactImageFallback.propTypes = {
 	src: PropTypes.string.isRequired,
-	fallbackImage: initialAndFallbackPropType.isRequired,
-	initialImage: initialAndFallbackPropType,
+	fallbackImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.array]).isRequired,
+	initialImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	onLoad: PropTypes.func,
 	onError: PropTypes.func
 };
