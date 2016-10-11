@@ -65,6 +65,6 @@
     "testdouble": "^1.2.0"
   },
   "dependencies": {
-    "html-attributes": "1.1.0"
+    "filter-invalid-dom-props": "1.0.0"
   }
 }

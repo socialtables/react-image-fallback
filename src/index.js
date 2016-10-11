@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from "react";
-import filterDOMProps from "./lib/filter-dom-props";
+import filterInvalidDOMProps from "filter-invalid-dom-props";
 
 export default class ReactImageFallback extends Component {
 	constructor(props) {
@@ -52,7 +52,7 @@ export default class ReactImageFallback extends Component {
 		return (
 			typeof this.state.imageSource === "string"
 			?
-			<img {...filterDOMProps(this.props)} src={this.state.imageSource} />
+			<img {...filterInvalidDOMProps(this.props)} src={this.state.imageSource} />
 			:
 			this.state.imageSource
 		);
