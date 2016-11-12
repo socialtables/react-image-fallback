@@ -4,12 +4,12 @@
   "description": "if your image doesn't exist, fallback onto another provided image.",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src --out-dir lib",
+    "build": "./node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "prepublish": "npm run build",
     "lint": "./node_modules/.bin/eslint ./src",
     "test": "npm run build && npm run lint &&  browserify test/index.js | tap-closer | smokestack -b firefox | tap-status",
     "test-debug": "npm run build && npm run lint &&  browserify test/index.js | smokestack | tap-status",
-    "watch": "babel src --watch --out-dir lib"
+    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir lib"
   },
   "browserify": {
     "transform": [
