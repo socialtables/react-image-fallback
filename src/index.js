@@ -4,7 +4,6 @@ import filterInvalidDOMProps from "filter-invalid-dom-props";
 export default class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
-		this.displayImage = new window.Image();
 		this.state = {
 			imageSource: props.initialImage
 		};
@@ -12,6 +11,7 @@ export default class ReactImageFallback extends Component {
 	}
 
 	componentDidMount() {
+		this.displayImage = new window.Image();
 		this.setDisplayImage({ image: this.props.src, fallbacks: this.props.fallbackImage });
 	}
 
@@ -24,6 +24,7 @@ export default class ReactImageFallback extends Component {
 	componentWillUnmount() {
 		this.displayImage.onerror = null;
 		this.displayImage.onload = null;
+		this.displayImage = null;
 	}
 	
 	setDisplayImage({ image, fallbacks }) {
