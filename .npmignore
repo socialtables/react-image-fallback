@@ -1,6 +1,5 @@
 node_modules
-npm-debug.log
-src
+npm-debug*.log
 test
 *.tgz
 .npmignore
