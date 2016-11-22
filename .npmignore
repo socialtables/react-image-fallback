@@ -1,2 +1,7 @@
 node_modules
-npm-debug.log
+npm-debug*.log
+test
+*.tgz
+.npmignore
+.eslintrc
+.babelrc
