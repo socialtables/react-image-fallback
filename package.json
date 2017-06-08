@@ -64,6 +64,7 @@
     "testdouble": "^1.2.0"
   },
   "dependencies": {
-    "filter-invalid-dom-props": "1.0.0"
+    "filter-invalid-dom-props": "1.0.0",
+    "prop-types": "^15.5.10"
   }
 }
