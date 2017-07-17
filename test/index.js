@@ -40,6 +40,16 @@ test("properly fallback to fallbackImage when src is broken", (assert) => {
 	}, 800);
 });
 
+test("properly fallback to fallbackImage when src is falsy", (assert) => {
+	const component = <ReactImageFallback fallbackImage={fallbackImage} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		assert.ok(rendered.state.imageSource === fallbackImage, "state is properly set to fallback image");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 800);
+});
 
 test("src is correctly rendered in dom when src prop is a valid image", (assert) => {
 	const component = <ReactImageFallback src={srcImage} fallbackImage={fallbackImage} />;

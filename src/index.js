@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types"
 import React, { Component } from "react";
 import filterInvalidDOMProps from "filter-invalid-dom-props";
 
@@ -27,9 +27,10 @@ export default class ReactImageFallback extends Component {
 		this.displayImage.onload = null;
 		this.displayImage = null;
 	}
-	
+
 	setDisplayImage({ image, fallbacks }) {
-		const imagesArray = [image].concat(fallbacks);
+		const fallbacksArray = Array.isArray(fallbacks) ? fallbacks : [fallbacks];
+		const imagesArray = image ? [image].concat(fallbacksArray) : fallbacksArray;
 		this.displayImage.onerror = () => {
 			if (imagesArray.length > 2 && typeof imagesArray[1] === "string") {
 				const updatedFallbacks = imagesArray.slice(2);
@@ -69,7 +70,7 @@ export default class ReactImageFallback extends Component {
 ReactImageFallback.displayName = "ReactImageFallback";
 
 ReactImageFallback.propTypes = {
-	src: PropTypes.string.isRequired,
+	src: PropTypes.string,
 	fallbackImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.array]).isRequired,
 	initialImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	onLoad: PropTypes.func,
