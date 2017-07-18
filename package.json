@@ -54,7 +54,6 @@
     "eslint": "^1.2.0",
     "eslint-plugin-react": "^3.1.0",
     "react": "^15",
-    "react-addons-test-utils": "^15",
     "react-dom": "^15",
     "smokestack": "^3.4.1",
     "tap-closer": "^1.0.0",
