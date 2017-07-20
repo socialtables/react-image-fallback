@@ -23,9 +23,11 @@ export default class ReactImageFallback extends Component {
 	}
 
 	componentWillUnmount() {
-		this.displayImage.onerror = null;
-		this.displayImage.onload = null;
-		this.displayImage = null;
+		if (this.displayImage) {
+			this.displayImage.onerror = null;
+			this.displayImage.onload = null;
+			this.displayImage = null;
+		}
 	}
 
 	setDisplayImage({ image, fallbacks }) {
