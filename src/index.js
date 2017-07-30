@@ -31,8 +31,7 @@ export default class ReactImageFallback extends Component {
 	}
 
 	setDisplayImage({ image, fallbacks }) {
-		const fallbacksArray = Array.isArray(fallbacks) ? fallbacks : [fallbacks];
-		const imagesArray = image ? [image].concat(fallbacksArray) : fallbacksArray;
+		const imagesArray = [image].concat(fallbacks).filter(fallback => !!fallback)
 		this.displayImage.onerror = () => {
 			if (imagesArray.length > 2 && typeof imagesArray[1] === "string") {
 				const updatedFallbacks = imagesArray.slice(2);
@@ -40,7 +39,7 @@ export default class ReactImageFallback extends Component {
 				return;
 			}
 			this.setState({
-				imageSource: imagesArray[1]
+				imageSource: imagesArray[1] || null
 			}, () => {
 				if (this.props.onError) {
 					this.props.onError(this.props.src);
@@ -56,7 +55,18 @@ export default class ReactImageFallback extends Component {
 				}
 			});
 		};
-		this.displayImage.src = imagesArray[0];
+		if (typeof imagesArray[0] === "string") {
+			this.displayImage.src = imagesArray[0];
+		}
+		else {
+			this.setState({
+				imageSource: imagesArray[0]
+			}, () => {
+				if (this.props.onLoad) {
+					this.props.onLoad(imagesArray[0]);
+				}
+			});
+		}
 	}
 
 	render() {

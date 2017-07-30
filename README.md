@@ -27,7 +27,7 @@ A callback called if initial image loads successfully, will be called with succe
 A callback called if initial image load fails, will be called with failing image url.
 
 #### `spread props`
-This component also utilizes jsx spread attributes to pass along custom image attributes such as alt tags and className. Only valid dom props will be spread to the image tag. 
+This component also utilizes jsx spread attributes to pass along custom image attributes such as alt tags and className. Only valid dom props will be spread to the image tag.
 
 ### Use
 

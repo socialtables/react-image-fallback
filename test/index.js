@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import TestUtils from "react-addons-test-utils";
+import TestUtils from "react-dom/test-utils";
 import test from "tape-catch";
 import td from 'testdouble';
 import ReactImageFallback from "../lib";
@@ -26,7 +26,7 @@ test("properly set state to src image", (assert) => {
 		assert.ok(rendered.state.imageSource === srcImage, "state is properly set to src image");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 500);
+	}, 1500);
 });
 
 test("properly fallback to fallbackImage when src is broken", (assert) => {
@@ -37,7 +37,7 @@ test("properly fallback to fallbackImage when src is broken", (assert) => {
 		assert.ok(rendered.state.imageSource === fallbackImage, "state is properly set to fallback image");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 800);
+	}, 1000);
 });
 
 test("properly fallback to fallbackImage when src is falsy", (assert) => {
@@ -46,6 +46,27 @@ test("properly fallback to fallbackImage when src is falsy", (assert) => {
 	//use setTimeout so async action of state being set can happen
 	setTimeout(() => {
 		assert.ok(rendered.state.imageSource === fallbackImage, "state is properly set to fallback image");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 1000);
+});
+
+test("properly fallback to fallbackImage when fallbackImage contains a falsy value", (assert) => {
+	const component = <ReactImageFallback src='http://brokenimage.com' fallbackImage={[undefined, fallbackImage]} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		assert.ok(rendered.state.imageSource === fallbackImage, "state is properly set to fallback image");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 800);
+});
+
+test("should not blow up if fallbackImage doesn't contain a truthy value", (assert) => {
+	const component = <ReactImageFallback src='http://brokenimage.com' fallbackImage={[undefined, null]} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
 	}, 800);
@@ -104,7 +125,7 @@ test("onError function is called on failed src load if provided", (assert) => {
 		assert.ok(td.verify(onError("http://brokenimage.com")) === undefined, "onError called with srcImage");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 800);
+	}, 1000);
 });
 
 test("should allow react element as fallback", (assert) => {
@@ -117,7 +138,7 @@ test("should allow react element as fallback", (assert) => {
 		assert.ok(dom.className === "div-class", "uses div as fallback");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 800);
+	}, 1000);
 });
 
 test("should allow react element as initialImage", (assert) => {
@@ -146,7 +167,7 @@ test("should allow array of fallbacks", (assert) => {
 		assert.ok(dom.src === fallbackImage, "rendered image has fallbackImage prop as src");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 800);
+	}, 3000);
 });
 
 test("should allow array of fallbacks and should stop when hitting react element", (assert) => {
@@ -160,5 +181,19 @@ test("should allow array of fallbacks and should stop when hitting react element
 		assert.ok(dom.className === "div-class", "uses div as fallback");
 		ReactDOM.unmountComponentAtNode(node);
 		assert.end();
-	}, 800);
+	}, 3000);
+});
+
+test("should allow array of fallbacks and should stop when hitting react element and src is falsy", (assert) => {
+	const fallbackElement = <div className="div-class">~**~</div>
+	const fallbacks = [fallbackElement, fallbackImage];
+	const component = <ReactImageFallback fallbackImage={fallbacks} />;
+	const rendered = renderComponent(component);
+	//use setTimeout so async action of state being set can happen
+	setTimeout(() => {
+		const dom = TestUtils.findRenderedDOMComponentWithTag(rendered, "div");
+		assert.ok(dom.className === "div-class", "uses div as fallback");
+		ReactDOM.unmountComponentAtNode(node);
+		assert.end();
+	}, 3000);
 });
