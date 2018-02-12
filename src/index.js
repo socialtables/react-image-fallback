@@ -72,10 +72,20 @@ export default class ReactImageFallback extends Component {
 	render() {
 		return (
 			typeof this.state.imageSource === "string"
-			?
-			<img {...filterInvalidDOMProps(this.props)} src={this.state.imageSource} />
-			:
-			this.state.imageSource
+				?
+				this.props.renderAsBackground
+					?
+					<div
+						{...filterInvalidDOMProps(this.props)}
+						style={{
+							...this.props.style,
+							backgroundImage: `url(${this.state.imageSource})`
+						}}
+					/>
+					:
+					<img {...filterInvalidDOMProps(this.props)} src={this.state.imageSource} />
+				:
+				this.state.imageSource
 		);
 	}
 }
@@ -86,7 +96,8 @@ ReactImageFallback.propTypes = {
 	fallbackImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.array]).isRequired,
 	initialImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	onLoad: PropTypes.func,
-	onError: PropTypes.func
+	onError: PropTypes.func,
+	renderAsBackground: PropTypes.bool
 };
 
 ReactImageFallback.defaultProps = {
