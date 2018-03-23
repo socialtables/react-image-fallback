@@ -17,7 +17,12 @@ export default class ReactImageFallback extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.src !== this.props.src){
+		if (nextProps.src !== this.props.src) {
+			if (nextProps.initialImage) {
+				this.setState({
+					imageSource: nextProps.initialImage
+				});
+			}
 			this.setDisplayImage({ image: nextProps.src, fallbacks: nextProps.fallbackImage });
 		}
 	}
