@@ -6,22 +6,41 @@ export default class ReactImageFallback extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			imageSource: props.initialImage
+			imageSource: null
 		};
 		this.setDisplayImage = this.setDisplayImage.bind(this);
+		this.handleInitialTimeout = this.handleInitialTimeout.bind(this);
+		this.isLoaded = false;
+	}
+
+	handleInitialTimeout() {
+		if (this.props.initialTimeout && this.props.initialTimeout > 0) {
+			setTimeout(() => {
+				if (!this.isLoaded) {
+					this.setState({
+						imageSource: this.props.initialImage
+					})
+				}
+			}, this.props.initialTimeout);
+		}
+		else {
+			this.setState({
+				imageSource: this.props.initialImage
+			});
+		}
 	}
 
 	componentDidMount() {
+		this.handleInitialTimeout();
 		this.displayImage = new window.Image();
 		this.setDisplayImage({ image: this.props.src, fallbacks: this.props.fallbackImage });
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.src !== this.props.src) {
+			this.isLoaded = false;
 			if (nextProps.initialImage) {
-				this.setState({
-					imageSource: nextProps.initialImage
-				});
+				this.handleInitialTimeout();
 			}
 			this.setDisplayImage({ image: nextProps.src, fallbacks: nextProps.fallbackImage });
 		}
@@ -43,6 +62,7 @@ export default class ReactImageFallback extends Component {
 				this.setDisplayImage({ image: imagesArray[1], fallbacks: updatedFallbacks });
 				return;
 			}
+			this.isLoaded = true;
 			this.setState({
 				imageSource: imagesArray[1] || null
 			}, () => {
@@ -52,6 +72,7 @@ export default class ReactImageFallback extends Component {
 			});
 		};
 		this.displayImage.onload = () => {
+			this.isLoaded = true;
 			this.setState({
 				imageSource: imagesArray[0]
 			}, () => {
@@ -91,7 +112,8 @@ ReactImageFallback.propTypes = {
 	fallbackImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element, PropTypes.array]).isRequired,
 	initialImage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 	onLoad: PropTypes.func,
-	onError: PropTypes.func
+	onError: PropTypes.func,
+	initialTimeout: PropTypes.number
 };
 
 ReactImageFallback.defaultProps = {
