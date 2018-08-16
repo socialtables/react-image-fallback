@@ -197,3 +197,21 @@ test("should allow array of fallbacks and should stop when hitting react element
 		assert.end();
 	}, 3000);
 });
+
+
+test("should not show initialImage when initial timeout is highenough", (assert) => {
+	const initial = <div className="div-class">~**~</div>
+	const component = (
+		<ReactImageFallback
+			src="http://brokenimage.com"
+			fallbackImage="http://brokenimage.com"
+			initialImage={initial}
+			initialTimeout={100000}
+		/>
+	);
+	const rendered = renderComponent(component);
+	const divsTag = TestUtils.scryRenderedDOMComponentsWithTag(rendered, "div");
+	assert.ok(divsTag.length === 0, "shouldn't show initial image before timeout");
+	ReactDOM.unmountComponentAtNode(node);
+	assert.end();
+});

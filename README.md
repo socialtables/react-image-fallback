@@ -20,6 +20,9 @@ A string representing the image you want to fallback to if your primary image is
 #### `initialImage`
 The image to show before your `src` or `fallbackImage` load. Can optionally be passed in as a react element.
 
+#### `initialTimeout`
+timeout in millisecond before to show initialImage. Default is null which should initialImage immediately
+
 #### `onLoad`
 A callback called if initial image loads successfully, will be called with successful image url.
 
