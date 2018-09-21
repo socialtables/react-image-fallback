@@ -1,10 +1,8 @@
-[![TypeScript definitions on DefinitelyTyped](https://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
-
 # React Image Fallback
 
 React Image Fallback exists for those times that you're just not sure an image will be there. See a simple demo <a href="http://socialtables.github.io/react-image-fallback/demo/">here</a>
 
-[![Circle CI](https://circleci.com/gh/socialtables/react-image-fallback.svg?style=svg)](https://circleci.com/gh/socialtables/react-image-fallback)
+[![Circle CI](https://circleci.com/gh/socialtables/react-image-fallback.svg?style=svg)](https://circleci.com/gh/socialtables/react-image-fallback) [![TypeScript definitions on DefinitelyTyped](https://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
 
 ### Install
 ` npm install react-image-fallback`
