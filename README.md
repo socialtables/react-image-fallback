@@ -1,3 +1,5 @@
+[![TypeScript definitions on DefinitelyTyped](https://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
+
 # React Image Fallback
 
 React Image Fallback exists for those times that you're just not sure an image will be there. See a simple demo <a href="http://socialtables.github.io/react-image-fallback/demo/">here</a>
