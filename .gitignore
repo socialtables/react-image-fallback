@@ -3,3 +3,9 @@ npm-debug.log
 lib
 !src/lib
 demo
+
+# cdk outputs artifacts into tmp/cdk
+tmp
+
+# sonarcloud artifacts
+.scannerwork

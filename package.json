@@ -9,7 +9,9 @@
     "lint": "./node_modules/.bin/eslint ./src",
     "test": "npm run build && npm run lint &&  browserify test/index.js | tap-closer | smokestack -b firefox | tap-status",
     "test-debug": "npm run build && npm run lint &&  browserify test/index.js | smokestack | tap-status",
-    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir lib"
+    "watch": "./node_modules/babel-cli/bin/babel.js src --watch --out-dir lib",
+    "changeset": "changeset",
+    "release": "st-changeset release --skipPublish"
   },
   "browserify": {
     "transform": [
@@ -46,6 +48,8 @@
     "react": ">=0.13"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.0",
+    "@socialtables/changesets": "^1.2.2",
     "babel-cli": "^6.18.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
